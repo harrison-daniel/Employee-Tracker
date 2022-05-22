@@ -1,0 +1,3 @@
+-- INSERT INTO company (first_name, last_name, industry-connected)
+-- VALUES
+-- ('Ronald', 'Firebank', 1),
