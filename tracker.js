@@ -66,3 +66,10 @@ function promptUser() {
       }
     })
 };
+
+
+viewAllDepartments = () => {
+  db.get('/department/:dep_name', (req, res) => {
+    const sql = `SELECT department.*, dep_name`
+  })
+};
