@@ -1,25 +1,16 @@
 const inquirer = require('inquirer');
 const cTable = require('console.table');
 const mysql = require('mysql2');
+const db = require('./db/connection');
 
-const db = mysql.createConnection(
-  {
-    host: 'localhost',
+// // start server after DB connection
+// db.connect(err => {
+//   if (err) throw err;
+//   // console.log('Database connected.');
+//   promptUser();
+// });
 
-    user: 'root',
-
-    password: 'AvJWLgj9prp62i3K6Wr4',
-    database: 'tracker'
-  },
-  console.log('Connected to the tracker database.')
-);
-
-// start server after DB connection
-db.connect(err => {
-  if (err) throw err;
-  // console.log('Database connected.');
-  promptUser();
-});
+promptUser();
 
 function promptUser() {
   
@@ -34,24 +25,24 @@ function promptUser() {
       type: 'list',
       name: 'mainPrompt',
       message: 'What would you like to do? (Use arrow keys)',
-      choices: ['View All Departments', 'View All Roles', 'View All Employees', 'Add a Department', 'Add Role', 'Add an Employee', 'Update Employee Role','Quit']
+      choices: ['View All Departments','Add a Department', 'View All Roles', 'Add Role', 'View All Employees', 'Add an Employee', 'Update Employee Role','Quit']
     })
     .then(answer => {
       switch (answer.mainPrompt) {
         case "View All Departments":
           viewAllDepartments();
           break;
-        case "View All Roles":
-          viewAllRoles();
-          break;
-        case "View All Employees":
-          viewAllEmployees();
-          break;
         case "Add a Department":
           addADepartment();
           break;
+        case "View All Roles":
+          viewAllRoles();
+          break;
         case "Add Role":
           addRole();
+          break;
+        case "View All Employees":
+          viewAllEmployees();
           break;
         case "Add an Employee":
           addAnEmployee();
@@ -69,7 +60,15 @@ function promptUser() {
 
 
 viewAllDepartments = () => {
-  db.get('/department/:dep_name', (req, res) => {
-    const sql = `SELECT department.*, dep_name`
-  })
+
+  const sql = `SELECT department_is AS id, department.department_name AS department FROM department`;
 };
+
+// async function main() {
+//   // get the client
+//   const mysqlProm = require('mysql2/promise');
+//   // create the connection
+//   const connection = await mysqlProm.createConnection({host:'localhost', user: 'root', database: 'tracker'});
+//   // query database
+//   const [rows, fields] = await connection.execute('SELECT * FROM `departments` WHERE `name` = ? AND `age` > ?', ['Morty', 14]);
+// }
